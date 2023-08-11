@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_page_l_inks",
+  "info": {
+    "displayName": "LInk",
+    "icon": "cursor"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}
