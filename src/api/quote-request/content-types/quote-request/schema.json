@@ -1,0 +1,66 @@
+{
+  "kind": "collectionType",
+  "collectionName": "quote_requests",
+  "info": {
+    "singularName": "quote-request",
+    "pluralName": "quote-requests",
+    "displayName": "Quote Request",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "regex": "/^\\(\\d{3}\\)\\s\\d{3}-\\d{4}/",
+      "required": true
+    },
+    "insurance_coverage": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::insurance-coverage.insurance-coverage"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Pending",
+        "Processing",
+        "Completed",
+        "Rejected"
+      ],
+      "default": "Pending",
+      "required": true
+    },
+    "notes": {
+      "type": "customField",
+      "options": {
+        "preset": "toolbar"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
+    },
+    "documents": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "additional_info": {
+      "type": "text",
+      "maxLength": 500
+    }
+  }
+}

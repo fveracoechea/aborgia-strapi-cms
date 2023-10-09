@@ -984,6 +984,60 @@ export interface ApiPrivacyPolicyPrivacyPolicy extends Schema.SingleType {
   };
 }
 
+export interface ApiQuoteRequestQuoteRequest extends Schema.CollectionType {
+  collectionName: 'quote_requests';
+  info: {
+    singularName: 'quote-request';
+    pluralName: 'quote-requests';
+    displayName: 'Quote Request';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    email: Attribute.Email & Attribute.Required & Attribute.Unique;
+    name: Attribute.String & Attribute.Required;
+    phone: Attribute.String & Attribute.Required;
+    insurance_coverage: Attribute.Relation<
+      'api::quote-request.quote-request',
+      'oneToOne',
+      'api::insurance-coverage.insurance-coverage'
+    >;
+    status: Attribute.Enumeration<
+      ['Pending', 'Processing', 'Completed', 'Rejected']
+    > &
+      Attribute.Required &
+      Attribute.DefaultTo<'Pending'>;
+    notes: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
+    documents: Attribute.Media;
+    additional_info: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::quote-request.quote-request',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::quote-request.quote-request',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiTermsAndConditionsPageTermsAndConditionsPage
   extends Schema.SingleType {
   collectionName: 'terms_and_conditions';
@@ -1065,6 +1119,7 @@ declare module '@strapi/types' {
       'api::insurance.insurance': ApiInsuranceInsurance;
       'api::insurance-coverage.insurance-coverage': ApiInsuranceCoverageInsuranceCoverage;
       'api::privacy-policy.privacy-policy': ApiPrivacyPolicyPrivacyPolicy;
+      'api::quote-request.quote-request': ApiQuoteRequestQuoteRequest;
       'api::terms-and-conditions-page.terms-and-conditions-page': ApiTermsAndConditionsPageTermsAndConditionsPage;
     }
   }
