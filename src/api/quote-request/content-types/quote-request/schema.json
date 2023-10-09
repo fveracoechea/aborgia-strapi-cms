@@ -23,7 +23,7 @@
     },
     "phone": {
       "type": "string",
-      "regex": "/^\\(\\d{3}\\)\\s\\d{3}-\\d{4}/",
+      "regex": "^\\(\\d{3}\\)\\s\\d{3}-\\d{4}",
       "required": true
     },
     "insurance_coverage": {
