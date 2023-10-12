@@ -737,6 +737,53 @@ export interface ApiAboutMeAboutMe extends Schema.SingleType {
   };
 }
 
+export interface ApiClientClient extends Schema.CollectionType {
+  collectionName: 'clients';
+  info: {
+    singularName: 'client';
+    pluralName: 'clients';
+    displayName: 'Client';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    fullname: Attribute.String & Attribute.Required;
+    phone: Attribute.String & Attribute.Required;
+    email: Attribute.String & Attribute.Required & Attribute.Unique;
+    quote_request: Attribute.Relation<
+      'api::client.client',
+      'oneToOne',
+      'api::quote-request.quote-request'
+    >;
+    notes: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      >;
+    documents: Attribute.Media;
+    status: Attribute.Enumeration<['active', 'inactive']> &
+      Attribute.DefaultTo<'active'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::client.client',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::client.client',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiHeroHero extends Schema.SingleType {
   collectionName: 'heroes';
   info: {
@@ -1115,6 +1162,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
       'api::about-me.about-me': ApiAboutMeAboutMe;
+      'api::client.client': ApiClientClient;
       'api::hero.hero': ApiHeroHero;
       'api::insurance.insurance': ApiInsuranceInsurance;
       'api::insurance-coverage.insurance-coverage': ApiInsuranceCoverageInsuranceCoverage;
