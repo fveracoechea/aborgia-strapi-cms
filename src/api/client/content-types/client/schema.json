@@ -24,7 +24,7 @@
     "email": {
       "type": "string",
       "required": true,
-      "unique": true
+      "unique": false
     },
     "quote_request": {
       "type": "relation",

@@ -751,7 +751,7 @@ export interface ApiClientClient extends Schema.CollectionType {
   attributes: {
     fullname: Attribute.String & Attribute.Required;
     phone: Attribute.String & Attribute.Required;
-    email: Attribute.String & Attribute.Required & Attribute.Unique;
+    email: Attribute.String & Attribute.Required;
     quote_request: Attribute.Relation<
       'api::client.client',
       'oneToOne',
@@ -1043,7 +1043,7 @@ export interface ApiQuoteRequestQuoteRequest extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    email: Attribute.Email & Attribute.Required & Attribute.Unique;
+    email: Attribute.Email & Attribute.Required;
     name: Attribute.String & Attribute.Required;
     phone: Attribute.String & Attribute.Required;
     insurance_coverage: Attribute.Relation<
